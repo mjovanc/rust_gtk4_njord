@@ -1,2 +1,2 @@
-# rust_egui_njord
-A simple task manager built with Egui and Njord
+# Task Manager with GTK 4 and Njord ORM
+A simple task manager built with GTK 4 and Njord ORM.
