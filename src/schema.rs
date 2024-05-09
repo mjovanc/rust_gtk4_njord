@@ -1,9 +1,12 @@
+use njord::table::Table;
+use njord_derive::Table;
+
 #[derive(Table)]
 #[table_name = "tasks"]
 pub struct Task {
-    id: u32,
-    title: String,
-    description: String,
-    priority: String,
-    status: String,
+    pub id: u32,
+    pub title: String,
+    pub description: String,
+    pub priority: String,
+    pub status: String,
 }

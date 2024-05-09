@@ -4,6 +4,10 @@ use gtk::{glib, Application, ApplicationWindow};
 use gtk::{prelude::*, Button};
 use njord::sqlite;
 
+use crate::schema::Task;
+
+mod schema;
+
 const APP_ID: &str = "org.gtk_rs.HelloWorld2";
 
 fn main() -> glib::ExitCode {
@@ -31,7 +35,7 @@ fn build_ui(app: &Application) {
         // Set the label to "Hello World!" after the button has been clicked on
         button.set_label("Hello World!");
 
-        let db_name = "../test.db";
+        let db_name = "test.db";
         let db_path = Path::new(&db_name);
 
         match sqlite::open(db_path) {
@@ -45,6 +49,9 @@ fn build_ui(app: &Application) {
                     priority: String::from("123 Main St"),
                     status: String::from(""),
                 };
+
+                let result = sqlite::insert(c, vec![task]);
+                println!("{:?}", result);
             }
             Err(err) => eprintln!("Error opening the database: {}", err),
         }
