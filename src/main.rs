@@ -1,5 +1,8 @@
+use std::path::Path;
+
 use gtk::{glib, Application, ApplicationWindow};
 use gtk::{prelude::*, Button};
+use njord::sqlite;
 
 const APP_ID: &str = "org.gtk_rs.HelloWorld2";
 
@@ -27,6 +30,24 @@ fn build_ui(app: &Application) {
     button.connect_clicked(|button| {
         // Set the label to "Hello World!" after the button has been clicked on
         button.set_label("Hello World!");
+
+        let db_name = "../test.db";
+        let db_path = Path::new(&db_name);
+
+        match sqlite::open(db_path) {
+            Ok(c) => {
+                println!("Database opened successfully!");
+
+                let task = Task {
+                    id: 0,
+                    title: String::from("john_doe"),
+                    description: String::from("john@example.com"),
+                    priority: String::from("123 Main St"),
+                    status: String::from(""),
+                };
+            }
+            Err(err) => eprintln!("Error opening the database: {}", err),
+        }
     });
 
     // Create a window
